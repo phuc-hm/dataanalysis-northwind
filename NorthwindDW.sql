@@ -1,8 +1,15 @@
 USE NorthwindDW
 GO
--- Orders fact:
-DROP TABLE NorthwindDW.dbo.factOrders
 
+--Drop all table and constraint
+DROP TABLE IF EXISTS NorthwindDW.dbo.factOrders
+DROP TABLE IF EXISTS NorthwindDW.dbo.factOrdersDetails
+DROP TABLE IF EXISTS NorthwindDW.dbo.dimProducts
+DROP TABLE IF EXISTS NorthwindDW.dbo.dimCustomers
+DROP TABLE IF EXISTS NorthwindDW.dbo.dimEmployees
+DROP TABLE IF EXISTS NorthwindDW.dbo.dimSupervisors
+
+-- Orders fact:
 CREATE TABLE factOrders(
 	[OrderID] int,
     [CustomerID] nchar(5),
@@ -21,8 +28,6 @@ CREATE TABLE factOrders(
 );
 
 -- OrdersDetails fact:
-DROP TABLE NorthwindDW.dbo.factOrdersDetails
-
 CREATE TABLE factOrdersDetails(
 	[OrderID] int,
 	[ProductID] int,
@@ -32,8 +37,6 @@ CREATE TABLE factOrdersDetails(
 );
 
 -- Customers dimension:
-DROP TABLE NorthwindDW.dbo.dimProducts
-
 CREATE TABLE dimProducts(
 	[ProductID] int,
     [ProductName] nvarchar(40),
@@ -63,8 +66,6 @@ CREATE TABLE dimProducts(
 
 
 -- Customers dimension:
-DROP TABLE NorthwindDW.dbo.dimCustomers
-
 CREATE TABLE dimCustomers(
 	[CustomerID] nchar(5),
 	[CompanyName] nvarchar(40),
@@ -80,8 +81,6 @@ CREATE TABLE dimCustomers(
 );
 
 -- Employees dimension:
-DROP TABLE NorthwindDW.dbo.dimEmployees
-
 CREATE TABLE dimEmployees(
 	[EmployeeID] int,
     [LastName] nvarchar(20),
@@ -101,11 +100,10 @@ CREATE TABLE dimEmployees(
     [Notes] ntext,
     [ReportsTo] int,
     [PhotoPath] nvarchar(255),
+
 );
 
 -- Supervisors dimension:
-DROP TABLE NorthwindDW.dbo.dimSupervisors
-
 CREATE TABLE dimSupervisors(
 	[EmployeeID] int,
     [LastName] nvarchar(20),
